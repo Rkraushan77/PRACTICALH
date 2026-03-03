@@ -1,0 +1,52 @@
+import time
+import random
+====================
+CPU_THRESHOLD = 70      # in percentage
+MEMORY_THRESHOLD = 80   # in percentage
+===============
+def get_resource_usage():
+    cpu_usage = random.randint(40, 95)
+    memory_usage = random.randint(40, 95)
+    return cpu_usage, memory_usage
+===============
+def apply_throttling(cpu, memory):
+    if cpu > CPU_THRESHOLD or memory > MEMORY_THRESHOLD:
+        print(f"Throttling Job: CPU={cpu}%, Memory={memory}%")
+        time.sleep(2)  # throttle (delay)
+    else:
+        print(f"Resources OK: CPU={cpu}%, Memory={memory}%")
+============
+def mapper(data):
+    mapped = []
+    for line in data:
+        cpu, memory = get_resource_usage()
+        apply_throttling(cpu, memory)
+        for word in line.split():
+            mapped.append((word, 1))
+    return mapped
+==========
+def shuffle_sort(mapped_data):
+    shuffled = {}
+    for key, value in mapped_data:
+        shuffled.setdefault(key, []).append(value)
+    return shuffled
+def reducer(shuffled_data):
+    reduced = {}
+    for key, values in shuffled_data.items():
+        cpu, memory = get_resource_usage()
+        apply_throttling(cpu, memory)
+        reduced[key] = sum(values)
+    return reduced
+==========
+input_data = [
+    "hadoop enables distributed processing",
+    "mapreduce handles large data",
+    "resource management is important in hadoop"
+]
+===========
+mapped_data = mapper(input_data)
+shuffled_data = shuffle_sort(mapped_data)
+output = reducer(shuffled_data)
+
+print("\nFinal Output:")
+print(output)
