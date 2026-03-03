@@ -1,0 +1,36 @@
+# MapReduce program to process a financial transactions dataset
+transactions = [
+    "C001,250",
+    "C002,400",
+    "C001,150",
+    "C003,300",
+    "C002,100",
+    "C003,200"
+]
+-----------------------------------------------------------
+def mapper(data):
+    mapped = []
+    for record in data:
+        customer_id, amount = record.split(",")
+        mapped.append((customer_id, int(amount)))
+    return mapped
+------
+from collections import defaultdict
+
+def shuffle_sort(mapped_data):
+    shuffled = defaultdict(list)
+    for customer_id, amount in mapped_data:
+        shuffled[customer_id].append(amount)
+    return shuffled
+-------------
+def reducer(shuffled_data):
+    reduced = {}
+    for customer_id, amounts in shuffled_data.items():
+        reduced[customer_id] = sum(amounts)
+    return reduced
+--------------
+mapped_data = mapper(transactions)
+shuffled_data = shuffle_sort(mapped_data)
+final_output = reducer(shuffled_data)
+
+final_output
