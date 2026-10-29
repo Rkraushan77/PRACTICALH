@@ -1,0 +1,40 @@
+# 2A. Bar charts
+# Simple bar chart
+A <- c(17, 32, 8, 53, 1)
+barplot(A, xlab = "X-axis", ylab = "Y-axis", main = "Bar-Chart")
+
+# Horizontal bar chart
+barplot(A, horiz = TRUE, xlab = "X-axis", ylab = "Y-axis", main = "Horizontal Bar Chart")
+
+# Bar chart with labels and colour
+A <- c(17, 2, 8, 13, 1, 22)
+B <- c("Jan", "feb", "Mar", "Apr", "May", "Jun")
+barplot(A, names.arg = B, xlab = "Month", ylab = "Articles", col = "green", main = "GeeksforGeeks-Article chart")
+
+# Grouped bar chart
+colors <- c("green", "orange", "brown")
+months <- c("Mar", "Apr", "May", "Jun", "Jul")
+regions <- c("East", "West", "North")
+values <- matrix(c(2, 9, 3, 11, 9, 4, 8, 7, 3, 12, 5, 2, 8, 10, 11), nrow = 3, ncol = 5, byrow = TRUE)
+barplot(values, main = "Total Revenue", names.arg = months, xlab = "Month", ylab = "Revenue", col = colors, beside = TRUE)
+legend("topleft", regions, cex = 0.7, fill = colors)
+
+# Stacked bar chart
+barplot(values, main = "Total Revenue", names.arg = months, xlab = "Month", ylab = "Revenue", col = colors)
+legend("topleft", regions, cex = 0.7, fill = colors)
+
+# 2B. Pie chart
+x <- c(210, 450, 250, 100, 50, 90)
+names(x) <- c("Algo", "DS", "Java", "C", "C++", "Python")
+pie(x, labels = names(x), col = "white", radius = 1, main = "Articles on GeeksforGeeks", col.main = "darkgreen")v
+
+# 2C. Histogram
+x <- c(21, 23, 56, 90, 20, 7, 94, 12, 57, 76, 69, 45, 34, 32, 49, 55, 57)
+hist(x, main = "Histogram of Vector x", xlab = "Values", col.lab = "darkgreen", col.main = "darkgreen")
+
+# 2D. Scatter plot
+plot(x = orange$age, y = orange$circumference, xlab = "Age", ylab = "Circumference", main = "Age vs Circumference", col.lab = "darkgreen", col.main = "darkgreen", col.axis = "darkgreen")
+
+# 2E. Box plot
+x <- c(42, 21, 22, 24, 25, 30, 29, 22, 23, 23, 24, 28, 32, 45, 39, 40)
+boxplot(x, xlab = "Box Plot", ylab = "Age", col.axis = "darkgreen", col.lab = "darkgreen")
