@@ -1,0 +1,27 @@
+# Step 1: Create the data
+df <- data.frame(hours = c(1, 1, 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8), score = c(48, 78, 72, 70, 66, 92, 93, 75, 75, 80, 95, 97, 90, 96, 99, 99))
+
+# Step 2: Fit the simple linear regression model
+model <- lm(score ~ hours, data = df)
+summary(model)
+plot(fitted(model), resid(model), xlab = "Fitted values", ylab = "Residuals")
+abline(0, 0)
+
+# Step 3: Test for heteroscedasticity
+library(lmtest)
+bptest(model)
+
+# Step 4: Weighted least squares
+wt <- 1 / lm(abs(model$residuals) ~ model$fitted.values)$fitted.values^2
+wls_model <- lm(score ~ hours, data = df, weights = wt)
+summary(wls_model)
+
+
+# 5a. Normality of residuals
+shapiro.test(resid(model))
+qqnorm(resid(model), main = "Normal Q-Q Plot of Residuals")
+qqline(resid(model), col = "red")
+
+# 5b. Durbin-Watson test
+library(lmtest)
+dwtest(model)
