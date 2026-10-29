@@ -1,0 +1,61 @@
+# 1. Basic program
+print("Hello world")
+
+# 2. Variables
+name <- "Rahul"
+age <- 20
+marks <- 85
+print(name)
+print(age)
+print(marks)
+
+# 3. Data types
+a <- 25.5
+b <- 25L
+c <- "R Programming"
+d <- TRUE
+e <- 2 + 3i
+print(class(a)) # numeric
+print(class(b)) # integer
+print(class(c)) # character
+print(class(d)) # logical
+print(class(e)) # complex
+
+# 4. Arithmetic operators
+a <- 10
+b <- 3
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+print(a %% b)
+print(a ^ b)
+
+# 5. Vectors and useful vector functions
+marks <- c(70, 75, 80, 85, 90)
+print(marks)
+print(length(marks))
+print(sum(marks))
+print(mean(marks))
+print(max(marks))
+print(min(marks))
+
+# 6. Sequence and repetition
+x <- seq(1, 10, by = 2)
+print(x)
+y <- rep(5, 4)
+print(y)
+
+# 7. User input
+name <- readline("Enter your name: ")
+age <- as.numeric(readline("Enter your age: "))
+print(name)
+print(age)
+
+# 8. Conditional statement
+marks <- 75
+if (marks >= 40) {
+  print("Pass")
+} else {
+  print("Fail")
+}
