@@ -1,0 +1,38 @@
+# 3A. Basic heatmap
+set.seed(110)
+data <- matrix(rnorm(100, 0, 5), nrow = 10, ncol = 10)
+colnames(data) <- paste0("col", 1:10)
+rownames(data) <- paste0("row", 1:10)
+heatmap(data)
+
+# Heatmap with colorRampPalette
+my_colors <- colorRampPalette(c("cyan", "darkgreen"))
+heatmap(data, col = my_colors(100))
+
+# Heatmap without dendrograms, with axis labels and margins
+heatmap(data, col = my_colors(100), main = "Customized Heatmap", xlab = "Columns", ylab = "Rows", margins = c(5, 10), Colv = NA, Rowv = NA)
+
+
+# 3B. Percentage stacked area chart
+library(ggplot2)
+library(dplyr)
+group <- rep(c("NORTH", "SOUTH", "EAST", "WEST"), times = 4)
+year <- as.numeric(rep(seq(2017, 2020), each = 4))
+price <- c(56.76171, 71.79472, 61.76387, 85.14322, 86.03499, 70.49531, 77.26497, 57.61432, 86.39476, 77.41802, 99.03071, 62.08326, 57.90093, 65.38019, 86.11634, 88.98761)
+data <- data.frame(year, price, group)
+
+# Stacked area chart
+graphics.off()
+ggplot(data, aes(x = year, y = price, fill = group)) + geom_area()
+
+# Calculate the percentage of each group in every year
+data <- data %>%
+  group_by(year, group) %>%
+  summarise(n = sum(price)) %>%
+  mutate(percentage = n / sum(n))
+
+# Plot the percentage stacked area chart
+ggplot(data, aes(x = year, y = price, fill = group)) +
+  geom_area(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  ggtitle("Percentage Stacked-Area Plot")
